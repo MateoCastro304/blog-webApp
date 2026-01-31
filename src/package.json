@@ -1,0 +1,12 @@
+{
+  "name": "blog-web-app",
+  "version": "1.0.0",
+  "description": "Blog Web Aplicatino for Capstone Project 3",
+  "license": "MIT",
+  "author": "Mateo Castro",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
