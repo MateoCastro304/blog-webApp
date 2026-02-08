@@ -1,0 +1,16 @@
+<%- include('partials/header.ejs') %>
+
+    <h1>Editar Post</h1>
+
+    <form action="/post/<%= post.id %>?_method=PATCH" method="POST">
+
+        <label>Título</label>
+        <input type="text" name="title" value="<%= post.title %>" required>
+
+        <label>Contenido</label>
+        <textarea name="content" rows="10" required><%= post.content %></textarea>
+
+        <button type="submit">Guardar cambios</button>
+    </form>
+
+    <%- include('partials/footer.ejs') %>

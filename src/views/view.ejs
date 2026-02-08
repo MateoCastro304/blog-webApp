@@ -1,0 +1,18 @@
+<%- include('partials/header.ejs') %>
+        
+    <h1>
+        Aca se puede Ver un POST
+    </h1>
+
+    <h2> <%= post.title %> </h2>
+    <p> <%= post.content %> </p>
+
+    <form action="/post/<%= post.id %>/edit" method="GET">
+        <button>Editar</button>
+    </form>
+
+    <form action="/post/<%= post.id %>/delete" method="GET">
+        <button>Eliminar</button>
+    </form>
+
+<%- include('partials/footer.ejs') %>

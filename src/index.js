@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import methodOverride from "method-override";
 
 const app = express();
 const port = 3000;
@@ -54,6 +55,8 @@ var allPosts = [post1,post2,post3];
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+
 
 app.post("/submit", (req,res) => {
 	console.log(req.body);
@@ -64,7 +67,6 @@ app.post("/submit", (req,res) => {
 	allPosts.push(nwPost);
 	console.log(nwPost);
 	res.redirect("/create");
-	savePosts(allPosts);
 
 });
 
@@ -79,6 +81,30 @@ app.get("/create", (req, res) => {
 
 app.get("/about", (req, res) => {
     res.render("about.ejs");
+});
+
+app.get("/post/:id", (req, res) => {
+    console.log(req.params.id);
+    var post = allPosts.find((p) => p.id == req.params.id);
+    console.log(post);
+    res.render("view.ejs", { post: post });
+});
+
+app.get("/post/:id/edit", (req,res) => {
+    var post = allPosts.find((p) => p.id == req.params.id);
+    res.render("edit.ejs", { post: post });
+})
+
+app.patch("/post/:id", (req,res) => {
+    var post = allPosts.find((p) => p.id == req.params.id);
+    post.title = req.body["title"];
+    post.content = req.body["content"];
+    console.log(req.body);
+
+    res.status(303).redirect("/post/" + req.params.id);
+});
+app.delete("/post/:id", (req,res) => {
+    
 });
 
 app.listen(port, () => {
