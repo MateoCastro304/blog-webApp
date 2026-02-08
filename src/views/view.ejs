@@ -1,18 +1,31 @@
 <%- include('partials/header.ejs') %>
-        
+
     <h1>
         Aca se puede Ver un POST
     </h1>
 
-    <h2> <%= post.title %> </h2>
-    <p> <%= post.content %> </p>
+    <h2>
+        <%= post.title %>
+    </h2>
+    <p>
+        <%= post.content %>
+    </p>
 
     <form action="/post/<%= post.id %>/edit" method="GET">
         <button>Editar</button>
     </form>
 
-    <form action="/post/<%= post.id %>/delete" method="GET">
-        <button>Eliminar</button>
-    </form>
+    <button onclick="openModal()">Eliminar</button>
 
-<%- include('partials/footer.ejs') %>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <p>¿Seguro que querés eliminar este post?</p>
+
+            <form action="/post/<%= post.id %>?_method=DELETE" method="POST">
+                <button type="submit">Sí, eliminar</button>
+                <button type="button" onclick="closeModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('partials/footer.ejs') %>

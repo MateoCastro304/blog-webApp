@@ -65,7 +65,7 @@ app.post("/submit", (req,res) => {
 
 	var nwPost = new Post(id, req.body["title"], req.body["author"], req.body["content"], currentDate.toDateString());
 	allPosts.push(nwPost);
-	console.log(nwPost);
+	
 	res.redirect("/create");
 
 });
@@ -84,9 +84,8 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/post/:id", (req, res) => {
-    console.log(req.params.id);
     var post = allPosts.find((p) => p.id == req.params.id);
-    console.log(post);
+
     res.render("view.ejs", { post: post });
 });
 
@@ -99,12 +98,16 @@ app.patch("/post/:id", (req,res) => {
     var post = allPosts.find((p) => p.id == req.params.id);
     post.title = req.body["title"];
     post.content = req.body["content"];
-    console.log(req.body);
+
 
     res.status(303).redirect("/post/" + req.params.id);
 });
 app.delete("/post/:id", (req,res) => {
-    
+    var indexPost = allPosts.findIndex((p) => p.id == req.params.id);
+    console.log(indexPost);
+    allPosts.splice(indexPost,1);
+    console.log(allPosts);
+    res.redirect("/");
 });
 
 app.listen(port, () => {
